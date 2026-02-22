@@ -1,3 +1,5 @@
+[![Tests](https://github.com/arno790/discord-wos-rally-team-timer/actions/workflows/python-app.yml/badge.svg)](https://github.com/arno790/discord-wos-rally-team-timer/actions/workflows/python-app.yml)
+
 # ⏱️ Discord WoS Rally Team-Timer Bot
 
 Ein Discord-Bot zur Koordination von Rally-Teams mit Live-Countdowns, Gruppenverwaltung und interaktiven Buttons.
