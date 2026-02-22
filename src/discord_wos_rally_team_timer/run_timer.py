@@ -3,7 +3,9 @@ import discord
 import asyncio
 
 
-async def run_timer(interaction: discord.Interaction, group_name: str, bot, old_msg=None):
+async def run_timer(
+    interaction: discord.Interaction, group_name: str, bot, old_msg=None
+):
     if not any(group.name == group_name for group in bot.groups):
         return
 
@@ -26,11 +28,11 @@ async def run_timer(interaction: discord.Interaction, group_name: str, bot, old_
         if old_msg:
             try:
                 await old_msg.delete()
-            except:
-                pass
+            except Exception as e:
+                print(f"could not delete old messages: {e}")
         msg = await interaction.channel.send(embed=embed, view=view)
     else:
-        await interaction.response.send_message(f"🚀 Startet...", ephemeral=True)
+        await interaction.response.send_message("🚀 Startet...", ephemeral=True)
         msg = await interaction.channel.send(embed=embed, view=view)
 
     bot.active_tasks[group_name] = asyncio.current_task()
@@ -56,8 +58,7 @@ async def run_timer(interaction: discord.Interaction, group_name: str, bot, old_
             )
 
             # Trigger update list
-            triggered = [
-                player for player in pending if player.time == current]
+            triggered = [player for player in pending if player.time == current]
             for player in triggered:
                 pending.remove(player)
 

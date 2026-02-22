@@ -23,8 +23,7 @@ class TimerCommand(app_commands.Group):
         if not any(group.name == team for group in self.bot.groups):
             new_team = Group(team)
             self.bot.groups.append(new_team)
-        group = next(
-            (group for group in self.bot.groups if group.name == team))
+        group = next((group for group in self.bot.groups if group.name == team))
         player = Player(player, time, team)
         group.members.append(player)
         group.members.sort(key=lambda player: player.time, reverse=True)
@@ -32,9 +31,7 @@ class TimerCommand(app_commands.Group):
             f"✅ {player} ({time}s) -> {team}", ephemeral=True
         )
 
-    @app_commands.command(
-        name="update", description="update a player"
-    )
+    @app_commands.command(name="update", description="update a player")
     async def update(
         self,
         interaction: discord.Interaction,
@@ -48,9 +45,11 @@ class TimerCommand(app_commands.Group):
                 "❌ Group not found", ephemeral=True
             )
         current_team = next(
-            (group for group in self.bot.groups if group.name == current_group))
+            (group for group in self.bot.groups if group.name == current_group)
+        )
         member = next(
-            (p for p in current_team.members if p.name.lower() == player.lower()), None)
+            (p for p in current_team.members if p.name.lower() == player.lower()), None
+        )
 
         if not member:
             return await interaction.response.send_message(
@@ -68,14 +67,12 @@ class TimerCommand(app_commands.Group):
                 new_team.members.append(member)
             else:
                 target_team = next(
-                    (group for group in self.bot.groups if group.name == target_group))
+                    (group for group in self.bot.groups if group.name == target_group)
+                )
                 target_team.members.append(member)
-                target_team.members.sort(
-                    key=lambda player: player.time, reverse=True)
+                target_team.members.sort(key=lambda player: player.time, reverse=True)
 
-        await interaction.response.send_message(
-            f"🔄 {player} updated.", ephemeral=True
-        )
+        await interaction.response.send_message(f"🔄 {player} updated.", ephemeral=True)
 
     @app_commands.command(name="list", description="List all groups and members")
     async def list(self, interaction: discord.Interaction):
@@ -86,8 +83,7 @@ class TimerCommand(app_commands.Group):
         embed = discord.Embed(title="📋 Übersicht", color=discord.Color.blue())
         for g in self.bot.groups:
             txt = "\n".join([f"• {p.name}: {p.time}s" for p in g.members])
-            embed.add_field(name=f"Gruppe: {g.name}",
-                            value=txt or "Leer", inline=False)
+            embed.add_field(name=f"Gruppe: {g.name}", value=txt or "Leer", inline=False)
         await interaction.response.send_message(embed=embed)
 
     @app_commands.command(name="start", description="Timer starten")
@@ -97,8 +93,7 @@ class TimerCommand(app_commands.Group):
     @app_commands.command(name="delete", description="remove configuration")
     async def delete(self, interaction: discord.Integration, group: str = None):
         if group:
-            team = next(
-                (team for team in self.bot.groups if team.name == group), None)
+            team = next((team for team in self.bot.groups if team.name == group), None)
             if team is None:
                 return await interaction.response.send_message(
                     f"❌ {group} not found", ephemeral=True

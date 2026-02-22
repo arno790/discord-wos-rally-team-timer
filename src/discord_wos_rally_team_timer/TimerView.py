@@ -19,12 +19,14 @@ class TimerView(discord.ui.View):
         if self.group_name in self.bot.active_tasks:
             await interaction.response.send_message("⚠️ Läuft bereits!", ephemeral=True)
         else:
-            await interaction.response.defer()  # Verhindert "Interaktion fehlgeschlagen"
+            await (
+                interaction.response.defer()
+            )  # Verhindert "Interaktion fehlgeschlagen"
             # Wir übergeben die aktuelle Nachricht zum Löschen
             from discord_wos_rally_team_timer.run_timer import run_timer
+
             asyncio.create_task(
-                run_timer(interaction, self.group_name,
-                          old_msg=interaction.message)
+                run_timer(interaction, self.group_name, old_msg=interaction.message)
             )
 
     @discord.ui.button(

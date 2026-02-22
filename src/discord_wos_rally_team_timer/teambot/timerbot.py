@@ -1,5 +1,4 @@
 import discord
-from discord import app_commands
 from discord.ext import commands
 from ..TimerCommand import TimerCommand
 
@@ -10,7 +9,7 @@ class TimerBot(commands.Bot):
         intents.message_content = True
         intents.members = True
         super().__init__(command_prefix="!", intents=intents)
-        self.groups = []        # list of Groups
+        self.groups = []  # list of Groups
         self.active_tasks = {}
 
     async def setup_hook(self):
