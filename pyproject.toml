@@ -1,0 +1,22 @@
+[project]
+name = "discord-wos-rally-team-timer"
+version = "0.1.0"
+description = "WoS rally team timmer"
+readme = "README.md"
+requires-python = ">=3.14"
+dependencies = [
+    "discord-py>=2.6.4",
+    "python-dotenv>=1.2.1",
+]
+
+[project.scripts]
+discord-rally-team-timer = "discord_rally_team_timer:main"
+
+[build-system]
+requires = ["uv_build>=0.10.2,<0.11.0"]
+build-backend = "uv_build"
+
+[dependency-groups]
+dev = [
+    "ruff>=0.15.1",
+]
